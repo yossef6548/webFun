@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>automata</title>
+    <style>
+
+        body{
+            margin: 10px;
+            font-size: 28px;
+            overflow-x: hidden;
+        }
+
+        h1{
+            background-color: burlywood;
+            margin: 20px 0px;
+        }
+
+        h2{
+            background-color: blanchedalmond;
+            margin: 15px 0px;
+        }
+
+        #uNUmStatesDiv input, #calculateDiv input{
+            margin-bottom: 30px;
+        }
+
+        #calculateDiv{
+            display: none;
+        }
+
+        #statesContainer{
+            font-size: 18px;
+            padding: 9px;
+            width: 100%;
+            overflow-x: scroll;
+        }
+
+        #states{
+            background-color: rgb(182, 182, 182);
+        }
+
+        #statesContainer::-webkit-scrollbar {
+            display: none;
+        }
+
+        #states span{
+            background-color: rgb(182, 182, 182);
+            padding: 5px;
+            border: 1px solid;
+            border-radius: 50%;
+        }
+
+        #result{
+            transition: font-size 200ms;
+        }
+        
+    </style>
+    <script>
+
+        var alphaB = [];
+        var statesNumbers = [];
+        var finalState = [];
+        var transition = [];
+
+        function saveState(){
+            for(var i = document.getElementById('statesNum').value *1-1 ; i >= 0 ; i--){
+                statesNumbers[i] = "q"+i;
+            }
+            alphaB = document.getElementById('uAlphaB').value.split("");
+            document.getElementById('uNUmStatesDiv').style.display = "none";
+            var str = "";
+            for(var i = 0 ; i < statesNumbers.length ; i++){
+                str += '<input type="checkbox" id="stateQ'+i+'ForFinal" value="q'+i+'"><label for="stateQ'+i+'ForFinal">State q'+i+'</label><br>';
+            }
+            str += '<button id="saveFinalState" onclick="saveFinals()">next</button>'
+            document.getElementById('denotFinalState').innerHTML = str;
+        }
+
+        function saveFinals(){
+            for(var i = 0 ; i < statesNumbers.length ; i++){
+                finalState[i] = document.getElementById('stateQ'+i+'ForFinal').checked
+            }
+            document.getElementById('denotFinalState').style.display = "none";
+            var str = "";
+            for(var i = 0 ; i < statesNumbers.length ; i++){
+                for(var x = 0 ; x < alphaB.length ; x++){
+                    str += 'When <span style="color: blue;">'+statesNumbers[i]+'</span> get <span style="color: green;">'+alphaB[x]+'</span> go to:<select id="'+ statesNumbers[i]+'To'+ alphaB[x] +'">';
+                    for(var z = 0 ; z < statesNumbers.length ; z++){
+                        str += '<option value="'+ statesNumbers[z] +'">'+ statesNumbers[z] +'</option>';
+                    }
+                    str += '</select><br>'
+                }
+                str += "<br><br>"
+            }
+            str += '<button id="saveTransitions" onclick="saveTransition()">construct the machine</button>';
+            document.getElementById('transitionDiv').innerHTML = str;
+        }
+
+        function saveTransition(){
+            document.querySelectorAll('select').forEach((select) => {
+                transition[select.id] = select.value;
+            });
+            document.getElementById('transitionDiv').style.display = "none";
+            document.getElementById('calculateDiv').style.display = "block";
+        }
+
+        function generateString(){
+            var str = "";
+            for(var i = Math.floor(Math.random() * 16) ; i > 0 ; i--){
+                str += alphaB[Math.floor(Math.random() * alphaB.length)]
+            }
+            document.getElementById('uString').value = str;
+        }
+
+        function checkString(){
+            var rsltSpan = document.getElementById('result');
+            rsltSpan.style.fontSize = "28px";
+            rsltSpan.innerHTML = "";
+            var curState = statesNumbers[0];
+            var str = document.getElementById('uString').value;
+            var states = "&rarr;";
+            str.split("").forEach(sym => {
+                states += '<span>'+curState+'</span>&rarr;'+sym+'&rarr;';
+                curState = transition[curState+'To'+sym];
+            })
+            states += '<span>'+curState+'</span>';
+            var stateElem = document.getElementById('states')
+            stateElem.innerHTML = states;
+            stateElem.querySelectorAll('span').forEach((span) => {
+                if(finalState[statesNumbers.indexOf(span.innerText)])span.style.border = "4px double";
+            })
+            finalState[statesNumbers.indexOf(curState)] ? rsltSpan.innerHTML = '<b style="color: green;">Accepted</b>' : rsltSpan.innerHTML = '<b style="color: red;">rejected</b>';
+            document.getElementById('statesContainer').scrollLeft = 0;
+            setTimeout(function(){
+                document.getElementById('statesContainer').scroll({left: document.getElementById('statesContainer').scrollWidth, behavior: "smooth"});
+                setTimeout(function(){rsltSpan.style.fontSize = "42px"},50)
+            },30)
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Finite automata</h1>
+    <hr>
+    <h2>DFA debuging</h2>
+    <hr>
+    <div id="uNUmStatesDiv">
+        <label>States amount:</label><br>
+        <input type="number" id="statesNum">
+        <br>
+        <label>Enter the alphabet:</label><br>
+        <input type="text" id="uAlphaB">
+        <br>
+        <button id="saveStatesNum" onclick="saveState()">next</button>
+    </div>
+    <div id="denotFinalState"></div>
+    <div id="transitionDiv"></div>
+    <div id="calculateDiv">
+        <label>Insert string</label><br>
+        <input type="text" id="uString">
+        <input type="button" onclick="generateString()" value="Generate random string"><br>
+        <input type="button" onclick="checkString()" value="Check"><br>
+        <hr>
+        <div id="statesContainer"><span id="states"></span></div>
+        <br><br>
+        <span id="result"></span>
+    </div>
+    <hr>
+    <h2>NFA debuging</h2>
+    <hr>
+    coming up soon...
+    <hr>
+    <h2>NFA 2 DFA</h2>
+    <hr>
+    coming up soon...
+</body>
+</html>
