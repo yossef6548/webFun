@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>roll a dice</title>
+    <style>
+        body {
+            overflow: hidden;
+            background-color: black;
+        }
+
+        #container {
+            display: inline-block;
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            margin: -100px 0px 0px -100px;
+            transform-style: preserve-3d;
+            transform: rotateX(-22deg) rotateY(-35deg) rotateZ(0deg);
+            transition: transform 5s;
+            transition-timing-function: ease-out;
+        }
+
+        .wall {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.7;
+            text-align: center;
+            line-height: 200px;
+            transition: opacity 1s;
+        }
+
+        .wall h1 {
+            font-size: 40px;
+            font-family: system-ui;
+            color: white;
+            mix-blend-mode: difference;
+            margin: 0px;
+            transition: font-size 1s;
+        }
+
+        #front {
+            background-color: burlywood;
+            transform: translateZ(100px);
+        }
+
+        #back {
+            background-color: chartreuse;
+            transform: translateZ(-100px) rotateY(180deg);
+        }
+
+        #top {
+            background-color: cornflowerblue;
+            transform: translateY(-100px) rotateX(90deg);
+        }
+
+        #bottom {
+            background-color: cyan;
+            transform: translateY(100px) rotateX(-90deg);
+        }
+
+        #right {
+            background-color: deeppink;
+            transform: translateX(100px) rotateY(90deg);
+        }
+
+        #left {
+            background-color: darkorange;
+            transform: translateX(-100px) rotateY(-90deg);
+        }
+
+        #clearListBtn {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            margin: 10px;
+        }
+
+        #divList {
+            height: fit-content;
+            max-height: 300px;
+            width: fit-content;
+            color: white;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        #divList::-webkit-scrollbar {
+            display: none;
+        }
+
+        #numList {
+            margin: 0px;
+            padding-left: 30px;
+        }
+    </style>
+
+    <script>
+
+        window.onload = function () {
+            document.getElementById('divList').style.maxHeight = window.innerHeight - 40 + "px";
+        }
+
+        var clickable = true;
+        var rotateX = 0;
+        var rotateY = 0;
+        var rotateZ = 0;
+        function roll(dice) {
+            if (clickable) {
+                clickable = false;
+                for (i = 0; i <= 1000; i++) {
+                    rotateX += Math.floor(Math.random() * 181) - 90;
+                    rotateY += Math.floor(Math.random() * 181) - 90;
+                    rotateZ += Math.floor(Math.random() * 181) - 90;
+                    dice.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
+                }
+                var middleX = window.innerWidth / 2;
+                var middleY = window.innerHeight / 2;
+                setTimeout(function () {
+                    var frontWall = document.elementFromPoint(middleX, middleY);
+                    frontWall.style.fontSize = "100px";
+                    frontWall.parentElement.style.opacity = 1;
+                    setTimeout(function () {
+                        frontWall.style.fontSize = "40px";
+                        frontWall.parentElement.style.opacity = 0.7;
+                        clickable = true;
+                        var ul = document.getElementById('numList');
+                        ul.lastElementChild.style.color = "white";
+                        ul.innerHTML += "<li>" + frontWall.textContent + "</li>";
+                        ul.lastElementChild.style.color = "red";
+                        ul.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }, 1000)
+                }, 5010)
+            }
+        }
+
+        function clearList() {
+            document.getElementById('numList').innerHTML = "<li>history</li>";
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <div id="divList">
+        <ul id="numList">
+            <li>history</li>
+        </ul>
+    </div>
+    <button id="clearListBtn" onclick="clearList()">clear</button>
+    <div id="container" onclick="roll(this)">
+        <div id="front" class="wall">
+            <h1>1</h1>
+        </div>
+        <div id="back" class="wall">
+            <h1>2</h1>
+        </div>
+        <div id="top" class="wall">
+            <h1>3</h1>
+        </div>
+        <div id="bottom" class="wall">
+            <h1>4</h1>
+        </div>
+        <div id="right" class="wall">
+            <h1>5</h1>
+        </div>
+        <div id="left" class="wall">
+            <h1>6</h1>
+        </div>
+    </div>
+</body>
+
+</html>
