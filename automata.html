@@ -14,7 +14,7 @@
         }
 
         body::-webkit-scrollbar,
-        #statesContainer::-webkit-scrollbar {
+        #DstatesContainer::-webkit-scrollbar {
             display: none;
         }
 
@@ -26,115 +26,261 @@
         h2 {
             background-color: blanchedalmond;
             margin: 15px 0px;
+            cursor: pointer;
+
         }
 
-        #uNUmStatesDiv input,
-        #calculateDiv input {
+        .arrow {
+            border: solid black;
+            border-width: 0 7px 7px 0;
+            display: inline-block;
+            padding: 5px;
+            transform: translateY(-5px) rotate(-45deg);
+        }
+
+        input,
+        select {
             margin-bottom: 30px;
+            font-size: 18px;
         }
 
-        #calculateDiv {
+        .hideDiv {
             display: none;
         }
 
-        #statesContainer {
+        #DstatesContainer {
             font-size: 18px;
             padding: 9px;
             width: 100%;
             overflow-x: scroll;
         }
 
-        #states span {
+        #Dstates span {
             background-color: rgb(211, 211, 211);
             padding: 5px;
             border: 1px solid;
             border-radius: 50%;
         }
 
-        #result {
+        #Dresult, #Nresult {
             transition: font-size 200ms;
         }
+
     </style>
     <script>
 
-        var alphaB = [];
-        var statesNumbers = [];
-        var finalState = [];
-        var transition = [];
+        var DalphaB = [];
+        var DstatesNumbers = [];
+        var DfinalState = [];
+        var Dtransition = [];
 
-        function saveState() {
-            for (var i = document.getElementById('statesNum').value * 1 - 1; i >= 0; i--) {
-                statesNumbers[i] = "q" + i;
+        function toggleVisibility(hidder) {
+            if (hidder.nextSibling.nextSibling.style.display != "block") {
+                hidder.nextSibling.nextSibling.style.display = "block";
+                hidder.children[0].style.transform = "translateY(-5px) rotate(45deg)";
+            } else {
+                hidder.nextSibling.nextSibling.style.display = "none";
+                hidder.children[0].style.transform = "translateY(-5px) rotate(-45deg)";
             }
-            alphaB = document.getElementById('uAlphaB').value.split("");
-            document.getElementById('uNUmStatesDiv').style.display = "none";
-            var str = "";
-            for (var i = 0; i < statesNumbers.length; i++) {
-                str += '<input type="checkbox" id="stateQ' + i + 'ForFinal" value="q' + i + '"><label for="stateQ' + i + 'ForFinal">State q' + i + '</label><br>';
-            }
-            str += '<button id="saveFinalState" onclick="saveFinals()">next</button>'
-            document.getElementById('denotFinalState').innerHTML = str;
         }
 
-        function saveFinals() {
-            for (var i = 0; i < statesNumbers.length; i++) {
-                finalState[i] = document.getElementById('stateQ' + i + 'ForFinal').checked
+        /******************DFA******************/
+
+        function DsaveState() {
+            for (var i = document.getElementById('DstatesNum').value * 1 - 1; i >= 0; i--) {
+                DstatesNumbers[i] = "q" + i;
             }
-            document.getElementById('denotFinalState').style.display = "none";
+            DalphaB = document.getElementById('DuAlphaB').value.split("");
+            document.getElementById('DuNUmStatesDiv').style.display = "none";
             var str = "";
-            for (var i = 0; i < statesNumbers.length; i++) {
-                for (var x = 0; x < alphaB.length; x++) {
-                    str += 'When <span style="color: blue;">' + statesNumbers[i] + '</span> get <span style="color: green;">' + alphaB[x] + '</span> go to:<select id="' + statesNumbers[i] + 'To' + alphaB[x] + '">';
-                    for (var z = 0; z < statesNumbers.length; z++) {
-                        str += '<option value="' + statesNumbers[z] + '">' + statesNumbers[z] + '</option>';
+            for (var i = 0; i < DstatesNumbers.length; i++) {
+                str += '<input type="checkbox" id="stateQ' + i + 'ForFinal" value="q' + i + '"><label for="stateQ' + i + 'ForFinal">State q' + i + '</label><br>';
+            }
+            str += '<input type="button" id="DsaveFinalState" onclick="DsaveFinals()" value="next">'
+            document.getElementById('DmarkFinalState').innerHTML = str;
+        }
+
+        function DsaveFinals() {
+            for (var i = 0; i < DstatesNumbers.length; i++) {
+                DfinalState[i] = document.getElementById('stateQ' + i + 'ForFinal').checked
+            }
+            document.getElementById('DmarkFinalState').style.display = "none";
+            var str = "";
+            for (var i = 0; i < DstatesNumbers.length; i++) {
+                for (var x = 0; x < DalphaB.length; x++) {
+                    str += 'When <span style="color: blue;">' + DstatesNumbers[i] + '</span> get <span style="color: green;">' + DalphaB[x] + '</span> go to:<select id="' + DstatesNumbers[i] + 'get' + DalphaB[x] + '">';
+                    for (var z = 0; z < DstatesNumbers.length; z++) {
+                        str += '<option value="' + DstatesNumbers[z] + '">' + DstatesNumbers[z] + '</option>';
                     }
                     str += '</select><br>'
                 }
                 str += "<br><br>"
             }
-            str += '<button id="saveTransitions" onclick="saveTransition()">construct the machine</button>';
-            document.getElementById('transitionDiv').innerHTML = str;
+            str += '<input type="button" id="DsaveTransitions" onclick="DsaveTransition()" value="construct the machine">';
+            document.getElementById('DtransitionDiv').innerHTML = str;
         }
 
-        function saveTransition() {
-            document.querySelectorAll('select').forEach((select) => {
-                transition[select.id] = select.value;
+        function DsaveTransition() {
+            document.getElementById('DtransitionDiv').querySelectorAll('select').forEach((select) => {
+                Dtransition[select.id] = select.value;
             });
-            document.getElementById('transitionDiv').style.display = "none";
-            document.getElementById('calculateDiv').style.display = "block";
+            document.getElementById('DtransitionDiv').style.display = "none";
+            document.getElementById('DcalculateDiv').style.display = "block";
         }
 
-        function generateString() {
+        function DgenerateString() {
             var str = "";
             for (var i = Math.floor(Math.random() * 16); i > 0; i--) {
-                str += alphaB[Math.floor(Math.random() * alphaB.length)]
+                str += DalphaB[Math.floor(Math.random() * DalphaB.length)]
             }
-            document.getElementById('uString').value = str;
+            document.getElementById('DuString').value = str;
         }
 
-        function checkString() {
-            var rsltSpan = document.getElementById('result');
-            rsltSpan.style.fontSize = "28px";
-            rsltSpan.innerHTML = "";
-            var curState = statesNumbers[0];
-            var str = document.getElementById('uString').value;
+        function DcheckString() {
+            var DrsltSpan = document.getElementById('Dresult');
+            DrsltSpan.style.fontSize = "28px";
+            DrsltSpan.innerHTML = "";
+            var curState = DstatesNumbers[0];
+            var str = document.getElementById('DuString').value;
             var states = "&rarr;";
             str.split("").forEach(sym => {
                 states += '<span>' + curState + '</span>&rarr;' + sym + '&rarr;';
-                curState = transition[curState + 'To' + sym];
+                curState = Dtransition[curState + 'get' + sym];
             })
             states += '<span>' + curState + '</span>';
-            var stateElem = document.getElementById('states')
+            var stateElem = document.getElementById('Dstates')
             stateElem.innerHTML = states;
             stateElem.querySelectorAll('span').forEach((span) => {
-                if (finalState[statesNumbers.indexOf(span.innerText)]) span.style.border = "4px double";
+                if (DfinalState[DstatesNumbers.indexOf(span.innerText)]) span.style.border = "4px double";
             })
-            finalState[statesNumbers.indexOf(curState)] ? rsltSpan.innerHTML = '<b style="color: green;">Accepted</b>' : rsltSpan.innerHTML = '<b style="color: red;">rejected</b>';
-            document.getElementById('statesContainer').scrollLeft = 0;
+            DfinalState[DstatesNumbers.indexOf(curState)] ? DrsltSpan.innerHTML = '<b style="color: green;">Accepted</b>' : DrsltSpan.innerHTML = '<b style="color: red;">rejected</b>';
+            document.getElementById('DstatesContainer').scrollLeft = 0;
             setTimeout(function () {
-                document.getElementById('statesContainer').scroll({ left: document.getElementById('statesContainer').scrollWidth, behavior: "smooth" });
-                setTimeout(function () { rsltSpan.style.fontSize = "42px" }, 50)
+                document.getElementById('DstatesContainer').scroll({ left: document.getElementById('DstatesContainer').scrollWidth, behavior: "smooth" });
+                setTimeout(function () { DrsltSpan.style.fontSize = "42px" }, 50)
             }, 30)
+        }
+
+        /******************NFA******************/
+
+        var NalphaB = [];
+        var NstatesNumbers = [];
+        var NfinalState = [];
+        var Ntransition = [];
+
+        function NsaveState() {
+            for (var i = document.getElementById('NstatesNum').value * 1 - 1; i >= 0; i--) {
+                NstatesNumbers[i] = "q" + i;
+            }
+            NalphaB = document.getElementById('NuAlphaB').value.split("");
+            document.getElementById('NuNUmStatesDiv').style.display = "none";
+            var str = "";
+            for (var i = 0; i < NstatesNumbers.length; i++) {
+                str += '<input type="checkbox" id="stateQ' + i + 'ForFinal" value="q' + i + '"><label for="stateQ' + i + 'ForFinal">State q' + i + '</label><br>';
+            }
+            str += '<input type="button" id="NsaveFinalState" onclick="NsaveFinals()" value="next">'
+            document.getElementById('NmarkFinalState').innerHTML = str;
+        }
+
+        function NsaveFinals() {
+            for (var i = 0; i < NstatesNumbers.length; i++) {
+                NfinalState[i] = document.getElementById('stateQ' + i + 'ForFinal').checked
+            }
+            document.getElementById('NmarkFinalState').style.display = "none";
+            /*var str = '<span>Fill The transition</span><div><div class="NeachTransitionDiv"><input type="text" class="NeachTrasitionLbl" placeholder="e.g. q0 get '+NalphaB[0]+'"> <select class="NeachTrasitionVal">';
+            for (var i = 0; i < NstatesNumbers.length; i++) {
+                str += '<option value="' + NstatesNumbers[i] + '">' + NstatesNumbers[i] + '</option>';
+            }
+            str += '</select> <input type="button" style="border: 1px solid; border-radius: 50%;" onclick="NaddTransitionDiv(this)" value="+"></div></div><input type="button" id="NsaveTransitions" onclick="NsaveTransition()" value="construct the machine">';*/
+            var str = "";
+            for (var i = 0; i < NstatesNumbers.length; i++) {
+                for (var x = 0; x < NalphaB.length; x++) {
+                    str += 'When <span style="color: blue;">' + NstatesNumbers[i] + '</span> get <span style="color: green;">' + NalphaB[x] + '</span> go to:<select id="' + i + 'get' + NalphaB[x] + '">';
+
+                    NstatesNumbers.forEach((a, ind) => {
+                        str += '<option value="' + ind + '">' + a + '</option>';
+                        for (var b = ind + 1; b < NstatesNumbers.length; b++) {
+                            str += '<option value="' + ind + b + '">' + a + ' ' + NstatesNumbers[b] + '</option>';
+                            for (var c = b + 1; c < NstatesNumbers.length; c++) {
+                                str += '<option value="' + ind + b + c + '">' + a + ' ' + NstatesNumbers[b] + ' ' + NstatesNumbers[c] + '</option>';
+                                for (var d = c + 1; d < NstatesNumbers.length; d++) {
+                                    str += '<option value="' + ind + b + c + d + '">' + a + ' ' + NstatesNumbers[b] + ' ' + NstatesNumbers[c] + ' ' + NstatesNumbers[d] + '</option>';
+                                    for (var e = d + 1; e < NstatesNumbers.length; e++) {
+                                        str += '<option value="' + ind + b + c + d + e + '">' + a + ' ' + NstatesNumbers[b] + ' ' + NstatesNumbers[c] + ' ' + NstatesNumbers[d] + ' ' + NstatesNumbers[e] + '</option>';
+                                        for (var f = e + 1; f < NstatesNumbers.length; f++) {
+                                            str += '<option value="' + ind + b + c + d + e + f + '">' + a + ' ' + NstatesNumbers[b] + ' ' + NstatesNumbers[c] + ' ' + NstatesNumbers[d] + ' ' + NstatesNumbers[e] + ' ' + NstatesNumbers[f] + '</option>';
+                                            for (var g = f + 1; g < NstatesNumbers.length; g++) {
+                                                str += '<option value="' + ind + b + c + d + e + f + g + '">' + a + ' ' + NstatesNumbers[b] + ' ' + NstatesNumbers[c] + ' ' + NstatesNumbers[d] + ' ' + NstatesNumbers[e] + ' ' + NstatesNumbers[f] + ' ' + NstatesNumbers[g] + '</option>';
+                                                for (var h = g + 1; h < NstatesNumbers.length; h++) {
+                                                    str += '<option value="' + ind + b + c + d + e + f + g + h + '">' + a + ' ' + NstatesNumbers[b] + ' ' + NstatesNumbers[c] + ' ' + NstatesNumbers[d] + ' ' + NstatesNumbers[e] + ' ' + NstatesNumbers[f] + ' ' + NstatesNumbers[g] + ' ' + NstatesNumbers[h] + '</option>';
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    })
+
+                    str += '<option value="">&Phi;</option></select><br>';
+                }
+                str += "<br><br>"
+            }
+            str += '<input type="button" id="NsaveTransitions" onclick="NsaveTransition()" value="construct the machine">';
+            document.getElementById('NtransitionDiv').innerHTML = str;
+        }
+
+        function NsaveTransition() {
+            document.getElementById('NtransitionDiv').querySelectorAll('select').forEach((select) => {
+                Ntransition[select.id] = select.value;
+            });
+            document.getElementById('NtransitionDiv').style.display = "none";
+            document.getElementById('NcalculateDiv').style.display = "block";
+            console.log(Ntransition);
+        }
+
+        function NgenerateString() {
+            var str = "";
+            for (var i = Math.floor(Math.random() * 16); i > 0; i--) {
+                str += NalphaB[Math.floor(Math.random() * NalphaB.length)]
+            }
+            document.getElementById('NuString').value = str;
+        }
+
+        function NcheckString() {
+            var NrsltSpan = document.getElementById('Nresult');
+            NrsltSpan.style.fontSize = "28px";
+            NrsltSpan.innerHTML = "";
+            var curState = "0";
+            var result = "";
+            var userStr = document.getElementById('NuString').value;
+            var syms = userStr.split("")
+            for (sym of syms){
+                var allState = "";
+                curState.split("").forEach(state => {
+                    allState += Ntransition[state + 'get' + sym];
+                });
+                curState = allState;
+                if (curState == ""){
+                    result = '<b style="color: red;">rejected</b>';
+                    break;
+                }
+            }
+            if (result == "")result = rtrnRslt(curState);
+            NrsltSpan.innerHTML = result;
+            setTimeout(function () { NrsltSpan.style.fontSize = "42px" }, 50);
+        }
+
+        function rtrnRslt(curState){
+            var str = "";
+            curState.split("").forEach(state => {
+                if (NfinalState[state*1]){
+                    str = '<b style="color: green;">Accepted</b>';
+                }else {
+                    str = '<b style="color: red;">rejected</b>';
+                }
+            });
+            return str;
         }
 
     </script>
@@ -143,37 +289,71 @@
 <body>
     <h1>Finite automata</h1>
     <hr>
-    <h2>DFA debuging</h2>
-    <hr>
-    <div id="uNUmStatesDiv">
-        <label>States amount:</label><br>
-        <input type="number" id="statesNum">
-        <br>
-        <label>Enter the alphabet:</label><br>
-        <input type="text" id="uAlphaB">
-        <br>
-        <button id="saveStatesNum" onclick="saveState()">next</button>
-    </div>
-    <div id="denotFinalState"></div>
-    <div id="transitionDiv"></div>
-    <div id="calculateDiv">
-        <label>Insert string</label><br>
-        <input type="text" id="uString">
-        <input type="button" onclick="generateString()" value="Generate random string"><br>
-        <input type="button" onclick="checkString()" value="Check"><br>
+    <!--**********DFA************-->
+    <h2 onclick="toggleVisibility(this)"> &nbsp;<i class="arrow"></i> DFA debugging</h2>
+    <div id="DfaDebugging" class="hideDiv">
         <hr>
-        <div id="statesContainer"><span id="states"></span></div>
-        <br><br>
-        <span id="result"></span>
+        <div id="DuNUmStatesDiv">
+            <label>States amount:</label><br>
+            <input type="number" id="DstatesNum">
+            <br>
+            <label>Enter the alphabet:</label><br>
+            <input type="text" id="DuAlphaB">
+            <br>
+            <input type="button" id="DsaveStatesNum" onclick="DsaveState()" value="next">
+        </div>
+        <div id="DmarkFinalState"></div>
+        <div id="DtransitionDiv"></div>
+        <div id="DcalculateDiv" class="hideDiv">
+            <label>Insert string</label><br>
+            <input type="text" id="DuString">
+            <input type="button" onclick="DgenerateString()" value="Generate random string"><br>
+            <input type="button" onclick="DcheckString()" value="Check"><br>
+            <hr>
+            <div id="DstatesContainer"><span id="Dstates"></span></div>
+            <br><br>
+            <span id="Dresult"></span>
+        </div>
     </div>
     <hr>
-    <h2>NFA debuging</h2>
+    <!--**********NFA************-->
+    <h2 onclick="toggleVisibility(this)"> &nbsp;<i class="arrow"></i> NFA debugging</h2>
+    <div id="NfaDebugging" class="hideDiv">
+        <hr>
+        <div id="NuNUmStatesDiv">
+            <label>States amount:</label><br>
+            <input type="number" id="NstatesNum" min="1" max="8">
+            <br>
+            <label>Enter the alphabet:</label><br>
+            <input type="text" id="NuAlphaB">
+            <br>
+            <input type="button" id="NsaveStatesNum" onclick="NsaveState()" value="next">
+        </div>
+        <div id="NmarkFinalState"></div>
+        <div id="NtransitionDiv"></div>
+        <div id="NcalculateDiv" class="hideDiv">
+            <label>Insert string</label><br>
+            <input type="text" id="NuString">
+            <input type="button" onclick="NgenerateString()" value="Generate random string"><br>
+            <input type="button" onclick="NcheckString()" value="Check"><br>
+            <hr><br>
+            <span id="Nresult"></span>
+        </div>
+    </div>
     <hr>
-    coming up soon...
+    <!--**********N2D************-->
+    <h2 onclick="toggleVisibility(this)"> &nbsp;<i class="arrow"></i> NFA 2 DFA</h2>
+    <div id="NfaToDfa" class="hideDiv">
+        <hr>
+        coming up soon...
+    </div>
     <hr>
-    <h2>NFA 2 DFA</h2>
-    <hr>
-    coming up soon...
+    <!--**********MINIMIZE DFA************-->
+    <h2 onclick="toggleVisibility(this)"> &nbsp;<i class="arrow"></i> Minimize DFA</h2>
+    <div id="MinimizeDfa" class="hideDiv">
+        <hr>
+        coming up soon...
+    </div>
 </body>
 
 </html>
