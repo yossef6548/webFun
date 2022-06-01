@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>change background</title>
+    <script>
+        
+        window.onload = function(){
+
+            document.getElementById("sendColorBtn").addEventListener("click", setColor);
+
+            document.getElementById('changeBC').oninput = function(){
+                document.getElementsByTagName('h1')[0].style.backgroundColor = this.value;
+            }
+
+            document.getElementById('chooseRgbBtn').addEventListener("click", function(){
+                var userRgb = "#" + prompt("insert RGB for example: \"f05b3e\"", "36c");
+                document.getElementsByTagName('h1')[0].style.color = userRgb;
+            })
+        }
+
+        function setColor(){
+            document.body.style.backgroundColor = document.getElementById('userColor').value;
+        }
+
+        function setBallColor(){
+            
+            var red = (1 * document.getElementById('uR').value).toString(16);
+            if(red.length == 1)red = "0" + red;
+            var green = (1 * document.getElementById('uG').value).toString(16);
+            if(green.length == 1)green = "0" + green;
+            var blue = (1 * document.getElementById('uB').value).toString(16);
+            if(blue.length == 1)blue = "0" + blue;
+            var rgbColor = `rgb(${parseInt(red, 16)}, ${parseInt(green, 16)}, ${parseInt(blue, 16)})`;
+
+            document.getElementById('ball').style.backgroundColor = rgbColor;
+            document.getElementById('rgbLbl').textContent = rgbColor;
+            document.getElementById('hexLbl').textContent = "#" + red + green + blue;
+        }
+
+        function setBallopacity(op){
+            document.getElementById('opLbl').textContent = op / 100;
+            document.getElementById('ball').style.opacity = op / 100;
+        }
+
+    </script>
+</head>
+
+<body style="text-align: center; font-family: cursive;">
+
+    <h1>change background</h1>
+    <hr><br><br>
+    
+    <button style="font-size: 20px; border: 1px solid;" onclick="setColor()">send by on click</button>
+    <input type="color" value="#ffddff" id="userColor">
+    <button style="font-size: 20px; border: 1px solid;" id="sendColorBtn">send by tag script</button>
+    <br><em>for body background</em>
+    <hr><br><br>
+    <label style="font-size: 24px;">changing automatically</label>
+    <input type="color" value="#ffbb55" id="changeBC">
+    <br><em>for hidder background</em>
+    <hr><br><br>
+    <button style="font-size: 20px; border: 1px solid;" id="chooseRgbBtn">choose RGB</button>
+    <br><em>for hidder text</em>
+    <hr><br><br>
+
+    
+    <div style="display: inline-flex; padding: 0px 2px; margin: 10px;">
+        <label style="color: red;">red</label>
+        <input type="range" oninput="setBallColor()" value="0" max="255" id="uR">
+    </div>
+    <br>
+    <div style="display: inline-flex; padding: 0px 2px; margin: 10px;">
+        <label style="color: green;">green</label>
+        <input type="range" oninput="setBallColor()" value="0" max="255" id="uG">
+    </div>
+    <br>
+    <div style="display: inline-flex; padding: 0px 2px; margin: 10px;">
+        <label style="color: blue;">blue</label>
+        <input type="range" oninput="setBallColor()" value="0" max="255" id="uB">
+    </div>
+    <br>
+    <div style="display: inline-flex; padding: 0px 2px; margin: 10px;">
+        <label style="color: black;">opacity</label>
+        <input type="range" oninput="setBallopacity(this.value)" value="100" max="100">
+        <label id="opLbl">1</label>
+    </div>
+    <br>
+    <div id="ball" style="display: inline-block; background-color: black; width: 300px; height: 300px; border: 1px solid black; border-radius: 50%; font-size: 32px; line-height: 52px;">
+        <br><br>
+        <label id="rgbLbl" style="color: white; mix-blend-mode: difference;">rgb(0, 0, 0)</label>
+        <br>
+        <label id="hexLbl" style="color: white; mix-blend-mode: difference;">#000000</label>
+    </div>
+</body>
+</html>
