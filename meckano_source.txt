@@ -1,0 +1,512 @@
+	<!DOCTYPE html>
+<html>
+<head>
+<title>כניסה למערכת | Meckano - שעון נוכחות</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<link href="css/bootstrap.css?t=102191" rel="stylesheet">
+<link href="css/bootstrap-rtl.css?t=102191" rel="stylesheet"> <link href="css/fonts/line-awesome/css/line-awesome.min.css?t=102191" rel="stylesheet">
+<link href="css/login.css.php?l=he&t=102191" rel="stylesheet">
+<link href="css/responsive.css?t=102191" rel="stylesheet">
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/jquery-3.6.0.min.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/bootstrap.min.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/json2.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/underscore-min.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/backbone.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/meckano.sync.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/jquery.metadata.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/Application.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/Dialogs.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/loginScripts.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="js/zxcvbn.js?ts=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript" src="tpl/tpl.js?t=102191"></script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript">
+				var _gaq = _gaq || [];
+				_gaq.push(['_setAccount', 'UA-30966104-1']);
+				_gaq.push(['_trackPageview']);
+
+				(function() {
+					var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+					ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js?t=102191';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+				})();
+			</script>
+<link rel="shortcut icon" href="images/favicon.ico" />
+<link rel="icon" href="images/favicon.ico" />
+<script src="https://accounts.google.com/gsi/client?ts=1696896658" async defer type="47767cdfa87be2874ee3eb77-text/javascript"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lfb53caAAAAAFPk-DdCDdPeC_Umv-xPAa9qOn7a&t=102191" type="47767cdfa87be2874ee3eb77-text/javascript"></script>
+</head>
+<body>
+<svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="appstore" aria-labelledby="appstoreTitle" viewBox="0 0 39.2 13">
+<title id="appstoreTitle">appstore</title>
+<g>
+<g>
+<path d="M37.3,13H1.8c-1,0-1.8-0.8-1.8-1.8V1.8C0,0.8,0.8,0,1.8,0h35.5c1,0,1.8,0.8,1.8,1.8v9.3
+						C39.2,12.1,38.3,13,37.3,13z M1.8,0.2c-0.9,0-1.6,0.7-1.6,1.6v9.3c0,0.9,0.7,1.6,1.6,1.6h35.5c0.9,0,1.6-0.7,1.6-1.6V1.8
+						c0-0.9-0.7-1.6-1.6-1.6H1.8z" />
+</g>
+<g>
+<g>
+<path d="M10.3,8.5C10.1,9,10,9.2,9.7,9.6c-0.4,0.6-0.9,1.3-1.5,1.3c-0.6,0-0.7-0.4-1.5-0.4c-0.8,0-0.9,0.4-1.5,0.4
+							c-0.6,0-1.1-0.6-1.5-1.2c-1-1.6-1.1-3.4-0.5-4.4C3.6,4.6,4.3,4.1,5,4.1c0.7,0,1.1,0.4,1.7,0.4c0.5,0,0.9-0.4,1.7-0.4
+							C8.9,4.1,9.6,4.5,10,5C8.5,5.9,8.8,8,10.3,8.5z" />
+</g>
+<g>
+<g>
+<path d="M7.7,3.5C8,3.1,8.2,2.6,8.2,2.1c-0.5,0-1,0.3-1.3,0.7C6.5,3.2,6.3,3.7,6.4,4.2C6.9,4.2,7.4,3.9,7.7,3.5z" />
+</g>
+</g>
+</g>
+<g>
+<g>
+<g>
+<path d="M13.4,5.2l-1.5,4.4h0.7l0.4-1.3h1.4L15,9.6h0.7l-1.5-4.4H13.4z M13.8,6c0.1,0.2,0.1,0.4,0.2,0.6l0.4,1.2
+								h-1.1l0.4-1.2C13.7,6.4,13.7,6.2,13.8,6z" />
+</g>
+<g>
+<path d="M17.6,6.4c-0.4,0-0.8,0.2-1.1,0.5l0-0.4h-0.6l0,0.1c0,0.3,0,0.6,0,1v3.4h0.7V9.3c0.2,0.2,0.5,0.4,0.9,0.4
+								c0.4,0,0.7-0.2,1-0.4c0.3-0.3,0.4-0.7,0.4-1.3c0-0.5-0.1-0.9-0.4-1.2C18.3,6.5,17.9,6.4,17.6,6.4z M17.4,6.9
+								c0.6,0,0.9,0.5,0.9,1.1c0,0.7-0.3,1.1-0.9,1.1c-0.4,0-0.7-0.3-0.8-0.6c0-0.1,0-0.1,0-0.2V7.8c0,0,0-0.1,0-0.2c0,0,0,0,0-0.1
+								C16.7,7.2,17,6.9,17.4,6.9z" />
+</g>
+<g>
+<path d="M21,6.4c-0.4,0-0.8,0.2-1.1,0.5l0-0.4h-0.6l0,0.1c0,0.3,0,0.6,0,1v3.4H20V9.3c0.2,0.2,0.5,0.4,0.9,0.4
+								c0.4,0,0.7-0.2,1-0.4c0.3-0.3,0.4-0.7,0.4-1.3c0-0.5-0.1-0.9-0.4-1.2C21.7,6.5,21.4,6.4,21,6.4z M20.8,6.9
+								c0.6,0,0.9,0.5,0.9,1.1c0,0.7-0.3,1.1-0.9,1.1c-0.4,0-0.7-0.3-0.8-0.6c0-0.1,0-0.1,0-0.2V7.8c0,0,0-0.1,0-0.2c0,0,0,0,0-0.1
+								C20.1,7.2,20.4,6.9,20.8,6.9z" />
+</g>
+<g>
+<path d="M25.2,7.1c-0.6-0.2-0.8-0.4-0.8-0.8c0-0.3,0.2-0.6,0.8-0.6c0.4,0,0.7,0.1,0.8,0.2L26,6l0.2-0.6l0,0
+								c-0.1-0.1-0.4-0.2-1-0.2c-0.8,0-1.4,0.5-1.4,1.2c0,0.6,0.4,1,1.2,1.3c0.6,0.2,0.8,0.4,0.8,0.8c0,0.4-0.3,0.7-0.8,0.7
+								c-0.3,0-0.7-0.1-1-0.3l-0.1,0l-0.2,0.6l0,0c0.2,0.2,0.7,0.3,1.1,0.3c1.1,0,1.5-0.7,1.5-1.3C26.3,7.8,26,7.4,25.2,7.1z" />
+</g>
+<g>
+<path d="M27.5,5.7l-0.6,0.2v0.5h-0.5V7h0.5v1.6c0,0.4,0.1,0.7,0.2,0.8c0.1,0.2,0.4,0.3,0.6,0.3c0.2,0,0.4,0,0.5-0.1
+								l0,0l0-0.5l-0.1,0c-0.1,0-0.2,0-0.3,0c-0.3,0-0.4-0.2-0.4-0.5V7h0.8V6.4h-0.8V5.7z" />
+</g>
+<g>
+<path d="M30,6.4c-0.9,0-1.6,0.7-1.6,1.7c0,1,0.6,1.6,1.5,1.6h0c0.8,0,1.6-0.5,1.6-1.7c0-0.5-0.1-0.9-0.4-1.2
+								C30.8,6.5,30.4,6.4,30,6.4z M30,6.9c0.6,0,0.9,0.6,0.9,1.1c0,0.7-0.4,1.1-0.9,1.1h0c-0.5,0-0.9-0.5-0.9-1.1
+								C29.1,7.5,29.3,6.9,30,6.9z" />
+</g>
+<g>
+<path d="M33.5,6.4L33.5,6.4c-0.1,0-0.1,0-0.2,0c-0.3,0-0.7,0.2-0.8,0.5l0-0.5h-0.6l0,0.1c0,0.3,0,0.6,0,1l0,2.2h0.7
+								V7.9c0-0.1,0-0.2,0-0.3C32.6,7.3,32.9,7,33.3,7c0.1,0,0.1,0,0.2,0l0.1,0V6.4z" />
+</g>
+<g>
+<path d="M35,6.4c-0.9,0-1.5,0.7-1.5,1.7c0,1,0.6,1.6,1.6,1.6c0.5,0,0.8-0.1,1-0.2l0,0L36,9L36,9
+								c-0.2,0.1-0.4,0.1-0.8,0.1c-0.3,0-0.9-0.1-1-1l2.1,0l0,0c0-0.1,0-0.2,0-0.3C36.3,7.2,36,6.4,35,6.4z M35,6.9
+								c0.2,0,0.4,0.1,0.5,0.2c0.2,0.2,0.2,0.5,0.2,0.6h-1.5C34.2,7.3,34.5,6.9,35,6.9z" />
+</g>
+</g>
+<g>
+<g>
+<path d="M11.9,2.3c0.2,0,0.4,0,0.6,0c0.4,0,0.7,0.1,0.9,0.3c0.2,0.2,0.3,0.4,0.3,0.7c0,0.3-0.1,0.6-0.3,0.8
+								c-0.2,0.2-0.6,0.3-1,0.3c-0.2,0-0.4,0-0.5,0V2.3z M12.2,4.1c0.1,0,0.2,0,0.3,0c0.6,0,1-0.3,1-0.9c0-0.5-0.3-0.8-0.9-0.8
+								c-0.2,0-0.3,0-0.3,0V4.1z" />
+</g>
+<g>
+<path d="M14.9,4.3c-0.4,0-0.8-0.3-0.8-0.8c0-0.5,0.4-0.8,0.8-0.8c0.5,0,0.8,0.3,0.8,0.8C15.7,4.1,15.3,4.3,14.9,4.3
+								L14.9,4.3z M14.9,4.1c0.3,0,0.5-0.2,0.5-0.6c0-0.3-0.1-0.6-0.5-0.6c-0.4,0-0.5,0.3-0.5,0.6C14.4,3.9,14.6,4.1,14.9,4.1L14.9,4.1
+								z" />
+</g>
+<g>
+<path d="M16.2,2.8l0.2,0.8c0,0.2,0.1,0.3,0.1,0.5h0c0-0.2,0.1-0.3,0.1-0.5L17,2.8h0.3l0.3,0.7
+								c0.1,0.2,0.1,0.3,0.1,0.5h0c0-0.2,0.1-0.3,0.1-0.5L18,2.8h0.3l-0.5,1.5h-0.3l-0.3-0.7c-0.1-0.2-0.1-0.3-0.1-0.5h0
+								c0,0.2-0.1,0.3-0.1,0.5l-0.3,0.7h-0.3l-0.5-1.5H16.2z" />
+</g>
+<g>
+<path d="M18.6,3.2c0-0.2,0-0.3,0-0.4h0.3l0,0.2h0c0.1-0.1,0.3-0.3,0.5-0.3c0.2,0,0.6,0.1,0.6,0.6v0.9h-0.3V3.4
+								c0-0.2-0.1-0.4-0.4-0.4c-0.2,0-0.3,0.1-0.4,0.3c0,0,0,0.1,0,0.1v0.9h-0.3V3.2z" />
+</g>
+<g>
+<path d="M20.5,2.1h0.3v2.2h-0.3V2.1z" />
+</g>
+<g>
+<path d="M21.9,4.3c-0.4,0-0.8-0.3-0.8-0.8c0-0.5,0.4-0.8,0.8-0.8c0.5,0,0.8,0.3,0.8,0.8C22.8,4.1,22.3,4.3,21.9,4.3
+								L21.9,4.3z M21.9,4.1c0.3,0,0.5-0.2,0.5-0.6C22.4,3.3,22.3,3,22,3c-0.4,0-0.5,0.3-0.5,0.6C21.4,3.9,21.7,4.1,21.9,4.1L21.9,4.1z
+								" />
+</g>
+<g>
+<path d="M24.3,3.9c0,0.1,0,0.3,0,0.4H24l0-0.2h0c-0.1,0.1-0.3,0.2-0.5,0.2c-0.3,0-0.5-0.2-0.5-0.4
+								c0-0.4,0.4-0.6,1-0.6v0C24,3.2,24,3,23.6,3c-0.2,0-0.3,0-0.4,0.1l-0.1-0.2c0.1-0.1,0.3-0.1,0.5-0.1c0.5,0,0.6,0.3,0.6,0.6V3.9z
+								 M24,3.5c-0.3,0-0.7,0-0.7,0.3c0,0.2,0.1,0.3,0.3,0.3c0.2,0,0.4-0.1,0.4-0.2c0,0,0-0.1,0-0.1V3.5z" />
+</g>
+<g>
+<path d="M26.2,2.1v1.8c0,0.1,0,0.3,0,0.4h-0.3l0-0.3h0c-0.1,0.2-0.3,0.3-0.6,0.3c-0.4,0-0.7-0.3-0.7-0.8
+								c0-0.5,0.3-0.8,0.7-0.8c0.3,0,0.4,0.1,0.5,0.2h0V2.1H26.2z M25.9,3.4c0,0,0-0.1,0-0.1c0-0.2-0.2-0.3-0.4-0.3
+								C25.1,3,25,3.2,25,3.6c0,0.3,0.2,0.6,0.5,0.6c0.2,0,0.4-0.1,0.4-0.3c0,0,0-0.1,0-0.1V3.4z" />
+</g>
+<g>
+<path d="M28.1,4.3c-0.4,0-0.8-0.3-0.8-0.8c0-0.5,0.4-0.8,0.8-0.8c0.5,0,0.8,0.3,0.8,0.8C28.9,4.1,28.5,4.3,28.1,4.3
+								L28.1,4.3z M28.1,4.1c0.3,0,0.5-0.2,0.5-0.6c0-0.3-0.1-0.6-0.5-0.6c-0.4,0-0.5,0.3-0.5,0.6C27.6,3.9,27.8,4.1,28.1,4.1L28.1,4.1
+								z" />
+</g>
+<g>
+<path d="M29.3,3.2c0-0.2,0-0.3,0-0.4h0.3l0,0.2h0c0.1-0.1,0.3-0.3,0.5-0.3c0.2,0,0.6,0.1,0.6,0.6v0.9h-0.3V3.4
+								C30.4,3.2,30.3,3,30,3c-0.2,0-0.3,0.1-0.4,0.3c0,0,0,0.1,0,0.1v0.9h-0.3V3.2z" />
+</g>
+<g>
+<path d="M32.3,2.4v0.4h0.4V3h-0.4v0.8c0,0.2,0.1,0.3,0.2,0.3c0.1,0,0.1,0,0.2,0l0,0.2c-0.1,0-0.1,0-0.3,0
+								c-0.1,0-0.3,0-0.3-0.1C32,4.1,32,4,32,3.8V3h-0.3V2.8H32V2.5L32.3,2.4z" />
+</g>
+<g>
+<path d="M33,2.1h0.3V3h0c0-0.1,0.1-0.1,0.2-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.6,0.1,0.6,0.6v0.9h-0.3V3.4
+								C34.1,3.2,34,3,33.8,3c-0.2,0-0.3,0.1-0.4,0.3c0,0,0,0.1,0,0.1v0.9H33V2.1z" />
+</g>
+<g>
+<path d="M35.1,3.6c0,0.4,0.3,0.5,0.6,0.5c0.2,0,0.3,0,0.5-0.1l0.1,0.2c-0.1,0-0.3,0.1-0.6,0.1
+								c-0.5,0-0.8-0.3-0.8-0.7c0-0.5,0.3-0.8,0.8-0.8c0.5,0,0.7,0.4,0.7,0.7c0,0.1,0,0.1,0,0.1L35.1,3.6z M36,3.4
+								C36,3.2,35.9,3,35.6,3c-0.3,0-0.4,0.3-0.5,0.4H36z" />
+</g>
+</g>
+</g>
+</g>
+</symbol>
+<symbol id="googlePlay" aria-labelledby="googlePlayTitle" viewBox="0 0 39.1 13">
+<title id="googlePlayTitle">google play</title>
+<g>
+<path d="M12.5,3.4h-0.3c0,0,0-0.1-0.1-0.3h-0.4c-0.1,0.2-0.1,0.3-0.1,0.3h-0.2c0,0,0.1-0.2,0.2-0.5
+					c0.1-0.3,0.2-0.5,0.2-0.5h0.3c0,0,0.1,0.2,0.2,0.5C12.5,3.2,12.5,3.3,12.5,3.4z M12.2,2.9C12.1,2.6,12,2.5,12,2.5h0
+					c0,0,0,0.2-0.1,0.5H12.2z" />
+<path d="M13.6,3.4h-0.2c0,0-0.1-0.1-0.2-0.4c-0.2-0.2-0.2-0.4-0.3-0.5h0c0,0.1,0,0.2,0,0.3c0,0.1,0,0.3,0,0.5h-0.2
+					c0-0.2,0-0.4,0-0.6c0-0.2,0-0.4,0-0.5H13c0,0,0.1,0.1,0.2,0.3c0.1,0.2,0.2,0.4,0.2,0.4h0c0-0.1,0-0.2,0-0.3c0-0.1,0-0.3,0-0.4h0.2
+					c0,0.1,0,0.3,0,0.5C13.6,3,13.6,3.2,13.6,3.4z" />
+<path d="M14.8,2.8c0,0.2,0,0.3-0.1,0.4c-0.1,0.1-0.2,0.2-0.4,0.2c-0.1,0-0.2,0-0.3,0c0-0.2,0-0.3,0-0.6
+					c0-0.2,0-0.4,0-0.5H14c0,0,0.1,0,0.1,0c0,0,0.1,0,0.1,0c0.2,0,0.3,0,0.4,0.1C14.7,2.5,14.8,2.7,14.8,2.8z M14.5,2.8
+					c0-0.1,0-0.2-0.1-0.3c-0.1-0.1-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0c0,0.1,0,0.2,0,0.3c0,0.1,0,0.3,0,0.4c0,0,0.1,0,0.1,0
+					c0.1,0,0.2,0,0.3-0.1C14.5,3,14.5,2.9,14.5,2.8z" />
+<path d="M15.8,3.4h-0.2c-0.1-0.2-0.1-0.3-0.1-0.4c0,0-0.1-0.1-0.2-0.1c0,0-0.1,0-0.1,0c0,0.1,0,0.3,0,0.4H15
+					c0-0.2,0-0.3,0-0.6c0-0.2,0-0.4,0-0.5h0.1c0,0,0.1,0,0.1,0c0.1,0,0.1,0,0.1,0c0.2,0,0.4,0.1,0.4,0.3c0,0.1-0.1,0.2-0.2,0.3v0
+					c0.1,0,0.1,0.1,0.1,0.1C15.7,3,15.8,3.2,15.8,3.4z M15.5,2.6c0-0.1-0.1-0.2-0.2-0.2c-0.1,0-0.1,0-0.1,0c0,0.1,0,0.2,0,0.3
+					c0,0,0.1,0,0.1,0C15.5,2.8,15.5,2.7,15.5,2.6z" />
+<path d="M17,2.8C17,3,17,3.1,16.9,3.2c-0.1,0.1-0.2,0.2-0.4,0.2c-0.1,0-0.3-0.1-0.4-0.2C16,3.1,16,3,16,2.9
+					c0-0.2,0.1-0.3,0.2-0.4c0.1-0.1,0.2-0.2,0.4-0.2c0.1,0,0.3,0,0.4,0.1C17,2.5,17,2.7,17,2.8z M16.8,2.8c0-0.1,0-0.2-0.1-0.3
+					c-0.1-0.1-0.1-0.1-0.2-0.1c-0.1,0-0.1,0-0.2,0.1c-0.1,0.1-0.1,0.2-0.1,0.3c0,0.1,0,0.2,0.1,0.3c0.1,0.1,0.1,0.1,0.2,0.1
+					c0.1,0,0.1,0,0.2-0.1C16.8,3,16.8,2.9,16.8,2.8z" />
+<path d="M17.5,3.4h-0.2c0-0.2,0-0.4,0-0.6c0-0.2,0-0.4,0-0.5h0.2c0,0.1,0,0.3,0,0.5C17.5,3,17.5,3.2,17.5,3.4z" />
+<path d="M18.6,2.8c0,0.2,0,0.3-0.1,0.4c-0.1,0.1-0.2,0.2-0.4,0.2c-0.1,0-0.2,0-0.3,0c0-0.2,0-0.3,0-0.6
+					c0-0.2,0-0.4,0-0.5h0.1c0,0,0.1,0,0.1,0s0.1,0,0.1,0c0.2,0,0.3,0,0.4,0.1C18.6,2.5,18.6,2.7,18.6,2.8z M18.4,2.8
+					c0-0.1,0-0.2-0.1-0.3c-0.1-0.1-0.2-0.1-0.3-0.1c0,0-0.1,0-0.1,0c0,0.1,0,0.2,0,0.3c0,0.1,0,0.3,0,0.4c0,0,0.1,0,0.1,0
+					c0.1,0,0.2,0,0.3-0.1C18.4,3,18.4,2.9,18.4,2.8z" />
+<path d="M20.2,3.4h-0.3c0,0,0-0.1-0.1-0.3h-0.4c-0.1,0.2-0.1,0.3-0.1,0.3h-0.2c0,0,0.1-0.2,0.2-0.5
+					c0.1-0.3,0.2-0.5,0.2-0.5h0.3c0,0,0.1,0.2,0.2,0.5C20.1,3.2,20.2,3.3,20.2,3.4z M19.8,2.9c-0.1-0.3-0.1-0.4-0.1-0.5h0
+					c0,0,0,0.2-0.1,0.5H19.8z" />
+<path d="M21.1,2.6c0,0.1,0,0.2-0.1,0.3C20.9,2.9,20.8,3,20.6,3c0,0,0,0-0.1,0c0,0.1,0,0.2,0,0.4h-0.2
+					c0-0.2,0-0.3,0-0.6c0-0.2,0-0.4,0-0.5h0.1c0,0,0.1,0,0.1,0c0.1,0,0.1,0,0.1,0c0.1,0,0.2,0,0.3,0.1C21.1,2.4,21.1,2.5,21.1,2.6z
+					 M20.9,2.6c0-0.1-0.1-0.2-0.2-0.2c0,0-0.1,0-0.1,0c0,0.1,0,0.2,0,0.3c0,0,0,0,0,0C20.8,2.8,20.9,2.8,20.9,2.6z" />
+<path d="M22.1,2.6c0,0.1,0,0.2-0.1,0.3C21.9,2.9,21.8,3,21.6,3c0,0,0,0-0.1,0c0,0.1,0,0.2,0,0.4h-0.2
+					c0-0.2,0-0.3,0-0.6c0-0.2,0-0.4,0-0.5h0.1c0,0,0.1,0,0.1,0s0.1,0,0.1,0c0.1,0,0.2,0,0.3,0.1C22.1,2.4,22.1,2.5,22.1,2.6z M21.9,2.6
+					c0-0.1-0.1-0.2-0.2-0.2c0,0-0.1,0-0.1,0c0,0.1,0,0.2,0,0.3c0,0,0,0,0,0C21.8,2.8,21.9,2.8,21.9,2.6z" />
+<path d="M23.7,2.8c0,0.2-0.1,0.3-0.2,0.4c-0.1,0.1-0.2,0.2-0.4,0.2c-0.1,0-0.3-0.1-0.4-0.2c-0.1-0.1-0.1-0.2-0.1-0.4
+					c0-0.2,0.1-0.3,0.2-0.4c0.1-0.1,0.2-0.2,0.4-0.2c0.1,0,0.3,0,0.4,0.1C23.6,2.5,23.7,2.7,23.7,2.8z M23.5,2.8c0-0.1,0-0.2-0.1-0.3
+					c-0.1-0.1-0.1-0.1-0.2-0.1c-0.1,0-0.1,0-0.2,0.1c-0.1,0.1-0.1,0.2-0.1,0.3c0,0.1,0,0.2,0.1,0.3c0.1,0.1,0.1,0.1,0.2,0.1
+					c0.1,0,0.1,0,0.2-0.1C23.4,3,23.5,2.9,23.5,2.8z" />
+<path d="M24.8,3.4h-0.2c0,0-0.1-0.1-0.2-0.4c-0.2-0.2-0.2-0.4-0.3-0.5h0c0,0.1,0,0.2,0,0.3c0,0.1,0,0.3,0,0.5h-0.2
+					c0-0.2,0-0.4,0-0.6c0-0.2,0-0.4,0-0.5h0.2c0,0,0.1,0.1,0.2,0.3c0.1,0.2,0.2,0.4,0.2,0.4h0c0-0.1,0-0.2,0-0.3c0-0.1,0-0.3,0-0.4h0.2
+					c0,0.1,0,0.3,0,0.5C24.8,3,24.8,3.2,24.8,3.4z" />
+</g>
+<g>
+<path d="M15.2,6.7c0,0.5-0.2,0.9-0.5,1.2c-0.4,0.4-0.8,0.6-1.4,0.6c-0.5,0-1-0.2-1.4-0.6c-0.4-0.4-0.6-0.8-0.6-1.4
+					s0.2-1,0.6-1.4c0.4-0.4,0.8-0.6,1.4-0.6c0.3,0,0.5,0.1,0.8,0.2c0.2,0.1,0.4,0.2,0.6,0.4l-0.3,0.3c-0.2-0.3-0.6-0.4-1-0.4
+					c-0.4,0-0.7,0.1-1,0.4C12.1,5.8,12,6.1,12,6.6c0,0.4,0.1,0.8,0.4,1.1c0.3,0.3,0.6,0.4,1,0.4c0.4,0,0.8-0.1,1-0.4
+					c0.2-0.2,0.3-0.4,0.3-0.8h-1.4V6.5h1.8C15.2,6.6,15.2,6.6,15.2,6.7z" />
+<path d="M15.8,6.2c0.2-0.3,0.6-0.4,0.9-0.4c0.4,0,0.7,0.1,0.9,0.4c0.2,0.3,0.4,0.6,0.4,1s-0.1,0.7-0.4,1
+					c-0.2,0.3-0.6,0.4-0.9,0.4c-0.4,0-0.7-0.1-0.9-0.4c-0.2-0.3-0.4-0.6-0.4-1S15.6,6.5,15.8,6.2z M16.2,7.9c0.2,0.2,0.4,0.3,0.6,0.3
+					c0.2,0,0.4-0.1,0.6-0.3c0.2-0.2,0.2-0.4,0.2-0.7c0-0.3-0.1-0.5-0.2-0.7c-0.2-0.2-0.4-0.3-0.6-0.3c-0.2,0-0.4,0.1-0.6,0.3
+					c-0.2,0.2-0.2,0.4-0.2,0.7C15.9,7.5,16,7.7,16.2,7.9z" />
+<path d="M18.6,6.2c0.2-0.3,0.6-0.4,0.9-0.4c0.4,0,0.7,0.1,0.9,0.4c0.2,0.3,0.4,0.6,0.4,1s-0.1,0.7-0.4,1
+					c-0.2,0.3-0.6,0.4-0.9,0.4c-0.4,0-0.7-0.1-0.9-0.4c-0.2-0.3-0.4-0.6-0.4-1S18.4,6.5,18.6,6.2z M19,7.9c0.2,0.2,0.4,0.3,0.6,0.3
+					c0.2,0,0.4-0.1,0.6-0.3c0.2-0.2,0.2-0.4,0.2-0.7c0-0.3-0.1-0.5-0.2-0.7c-0.2-0.2-0.4-0.3-0.6-0.3c-0.2,0-0.4,0.1-0.6,0.3
+					c-0.2,0.2-0.2,0.4-0.2,0.7C18.7,7.5,18.8,7.7,19,7.9z" />
+<path d="M22.3,9.7c-0.3,0-0.6-0.1-0.7-0.2c-0.2-0.2-0.3-0.3-0.4-0.5l0.4-0.2c0,0.1,0.1,0.3,0.3,0.4
+					c0.1,0.1,0.3,0.1,0.4,0.1c0.3,0,0.5-0.1,0.6-0.2c0.2-0.2,0.2-0.4,0.2-0.6V8.1h0c-0.1,0.1-0.2,0.2-0.4,0.3c-0.2,0.1-0.3,0.1-0.5,0.1
+					c-0.3,0-0.6-0.1-0.9-0.4c-0.2-0.3-0.4-0.6-0.4-1c0-0.4,0.1-0.7,0.4-1c0.2-0.3,0.5-0.4,0.9-0.4c0.2,0,0.4,0,0.5,0.1
+					C22.9,6,23,6.1,23.1,6.3h0V5.9h0.5v2.4c0,0.4-0.1,0.8-0.4,1C23,9.6,22.7,9.7,22.3,9.7z M22.3,8.1c0.2,0,0.4-0.1,0.6-0.3
+					c0.2-0.2,0.2-0.4,0.2-0.7c0-0.3-0.1-0.5-0.2-0.7c-0.2-0.2-0.4-0.3-0.6-0.3c-0.2,0-0.4,0.1-0.6,0.3c-0.2,0.2-0.2,0.4-0.2,0.7
+					c0,0.3,0.1,0.5,0.2,0.7C21.9,8,22.1,8.1,22.3,8.1z" />
+<path d="M24.5,8.5h-0.5V4.7h0.5V8.5z" />
+<path d="M26.1,8.5c-0.4,0-0.7-0.1-0.9-0.4c-0.2-0.3-0.4-0.6-0.4-1c0-0.4,0.1-0.7,0.4-1c0.2-0.3,0.5-0.4,0.9-0.4
+					c0.4,0,0.7,0.1,0.9,0.4c0.2,0.2,0.3,0.6,0.3,1l0,0.1h-2c0,0.3,0.1,0.5,0.3,0.6c0.2,0.1,0.3,0.2,0.6,0.2c0.3,0,0.6-0.1,0.7-0.4
+					l0.4,0.2C27.2,8,27,8.2,26.8,8.3C26.7,8.5,26.4,8.5,26.1,8.5z M26.8,6.9c0-0.1-0.1-0.3-0.2-0.4c-0.1-0.1-0.3-0.2-0.6-0.2
+					c-0.2,0-0.3,0.1-0.5,0.2c-0.1,0.1-0.2,0.3-0.3,0.4H26.8z" />
+<path d="M29.2,8.5h-0.5V4.7H30c0.3,0,0.6,0.1,0.8,0.3c0.2,0.2,0.3,0.5,0.3,0.8c0,0.3-0.1,0.6-0.3,0.8
+					c-0.2,0.2-0.5,0.3-0.8,0.3h-0.8V8.5z M29.2,6.5H30c0.2,0,0.4-0.1,0.5-0.2c0.1-0.1,0.2-0.3,0.2-0.4c0-0.2-0.1-0.3-0.2-0.4
+					c-0.1-0.1-0.3-0.2-0.5-0.2h-0.8V6.5z" />
+<path d="M32,8.5h-0.5V4.7H32V8.5z" />
+<path d="M33.2,8.5c-0.3,0-0.5-0.1-0.7-0.2c-0.2-0.2-0.3-0.4-0.3-0.6c0-0.3,0.1-0.5,0.3-0.7c0.2-0.2,0.5-0.2,0.8-0.2
+					c0.3,0,0.5,0.1,0.7,0.2V6.9c0-0.2-0.1-0.3-0.2-0.5c-0.1-0.1-0.3-0.2-0.5-0.2c-0.1,0-0.3,0-0.4,0.1c-0.1,0.1-0.2,0.2-0.2,0.3
+					l-0.4-0.2c0.1-0.2,0.2-0.3,0.4-0.4c0.2-0.1,0.4-0.2,0.7-0.2c0.3,0,0.6,0.1,0.8,0.3c0.2,0.2,0.3,0.5,0.3,0.8v1.5h-0.5V8.1h0
+					C33.9,8.4,33.6,8.5,33.2,8.5z M33.3,8.1c0.2,0,0.4-0.1,0.5-0.2c0.2-0.1,0.2-0.3,0.2-0.5c-0.1-0.1-0.3-0.2-0.6-0.2
+					c-0.2,0-0.4,0.1-0.5,0.2c-0.1,0.1-0.2,0.2-0.2,0.4c0,0.1,0.1,0.2,0.2,0.3C33.1,8.1,33.2,8.1,33.3,8.1z" />
+<path d="M35.6,9.6h-0.5l0.6-1.3l-1.1-2.4h0.5l0.8,1.8h0l0.7-1.8h0.5L35.6,9.6z" />
+</g>
+<g>
+<path d="M2.5,6.5c0-1.2,0-2.4,0-3.6c0-0.1,0-0.3,0.1-0.4c0,0,0.1-0.1,0.1,0C3.5,3.4,4.3,4.2,5.2,5
+					c0.5,0.5,1,1.1,1.6,1.6c0.1,0.1,0.1,0.1,0,0.1C5.4,8,4.2,9.3,2.9,10.6c-0.1,0.1-0.1,0.1-0.2,0c-0.1-0.1-0.2-0.2-0.2-0.4
+					c0-0.7,0-1.4,0-2.1C2.5,7.5,2.5,7,2.5,6.5C2.5,6.5,2.5,6.5,2.5,6.5z" />
+<path d="M2.9,2.4c0.1,0,0.2,0,0.2,0.1c1.6,0.9,3.3,1.8,4.9,2.8c0.1,0,0.1,0.1,0,0.1C7.7,5.7,7.4,6.1,7,6.4
+					c0,0-0.1,0.1-0.1,0C5.6,5.1,4.3,3.8,2.9,2.4C3,2.4,3,2.4,2.9,2.4z" />
+<path d="M3.3,10.5c1.2-1.2,2.4-2.4,3.6-3.6C6.9,6.8,7,6.9,7,6.9C7.4,7.2,7.7,7.5,8,7.9C8,7.9,8,7.9,7.9,8
+					C6.4,8.8,4.9,9.6,3.3,10.5C3.3,10.5,3.3,10.5,3.3,10.5z" />
+<path d="M10.1,6.6c0,0.1-0.1,0.2-0.2,0.3C9.9,6.9,9.8,7,9.7,7C9.2,7.3,8.8,7.5,8.3,7.8c-0.1,0-0.1,0-0.2,0
+					c-0.3-0.3-0.7-0.7-1-1c0,0,0-0.1,0-0.1C7.6,6.2,8,5.8,8.3,5.5c0,0,0.1-0.1,0.1,0C8.9,5.7,9.4,6,9.8,6.2C10,6.3,10.1,6.4,10.1,6.6z" />
+</g>
+<g>
+<path d="M37.3,13H1.8c-1,0-1.8-0.8-1.8-1.8V1.8C0,0.8,0.8,0,1.8,0h35.5c1,0,1.8,0.8,1.8,1.8v9.3
+					C39.1,12.1,38.3,13,37.3,13z M1.8,0.2c-0.9,0-1.6,0.7-1.6,1.6v9.3c0,0.9,0.7,1.6,1.6,1.6h35.5c0.9,0,1.6-0.7,1.6-1.6V1.8
+					c0-0.9-0.7-1.6-1.6-1.6H1.8z" />
+</g>
+</symbol>
+<symbol id="showPass" aria-labelledby="showPassTitle" viewBox="0 0 15.9 11">
+<title id="showPassTitle">show Password</title>
+<g>
+<g>
+<path d="M8,9C6.1,9,4.6,7.4,4.6,5.5C4.6,3.6,6.1,2,8,2s3.4,1.6,3.4,3.5C11.3,7.4,9.8,9,8,9z M8,2.7
+						C6.5,2.7,5.3,4,5.3,5.5S6.5,8.3,8,8.3s2.7-1.2,2.7-2.8S9.4,2.7,8,2.7z" />
+</g>
+<g>
+<path d="M8,7.1c-0.9,0-1.6-0.7-1.6-1.6c0-0.9,0.7-1.6,1.6-1.6c0.9,0,1.6,0.7,1.6,1.6C9.5,6.4,8.8,7.1,8,7.1z M8,4.6
+						C7.5,4.6,7.1,5,7.1,5.5S7.5,6.5,8,6.5c0.5,0,0.9-0.4,0.9-0.9S8.5,4.6,8,4.6z" />
+</g>
+<g>
+<path d="M8,11C4.7,11,1.7,9,0,5.7c0-0.1,0-0.2,0-0.3C1.7,2.1,4.7,0,8,0s6.3,2.1,7.9,5.4c0,0.1,0,0.2,0,0.3
+						C14.2,9,11.2,11,8,11z M0.7,5.5c1.5,3,4.3,4.8,7.2,4.8s5.7-1.8,7.2-4.8c-1.5-3-4.3-4.8-7.2-4.8S2.3,2.5,0.7,5.5z" />
+</g>
+</g>
+</symbol>
+<symbol id="language" aria-labelledby="languageTitle" viewBox="0 0 12 12">
+<title id="languageTitle">language</title>
+<g>
+<g>
+<path d="M6,12c-3.3,0-6-2.7-6-6s2.7-6,6-6c3.3,0,6,2.7,6,6S9.3,12,6,12z M6,0.5C3,0.5,0.5,3,0.5,6
+						c0,3,2.5,5.5,5.5,5.5S11.5,9,11.5,6C11.5,3,9,0.5,6,0.5z" />
+</g>
+<g>
+<path d="M8.1,9.6c-0.1,0-0.2,0-0.2,0C7.5,9.3,7.5,8.6,7.5,8.3c0-1.2-0.1-2.2-1-2.5C5.9,5.5,5.6,5.4,5.3,5.4
+						C5.1,5.3,4.9,5.1,4.9,4.8c0-0.4,0.1-0.9,0.6-1.1c0.2-0.1,0.3-0.1,0.5-0.1c0-0.1,0-0.2,0-0.3C5.9,3.1,5.8,3,5.8,3
+						c-0.1-0.1-0.4-0.1-0.6,0c-0.1,0-0.2,0-0.3,0c-0.1,0-0.2,0.1-0.4,1l0,0.2C4.4,4.4,4.3,4.5,4.1,4.6c-0.3,0-0.6-0.3-0.6-0.4
+						c0-0.1-0.1-0.2-0.1-0.4C3.3,3.9,3.1,4.1,2.5,4.4C2.2,4.5,2,4.4,1.9,4.3C1.5,3.9,1.9,3,2,2.6c0.1-0.1,0.2-0.2,0.3-0.1
+						c0.1,0.1,0.2,0.2,0.1,0.3c-0.2,0.5-0.3,1-0.3,1.1c0,0,0,0,0.1,0c0.5-0.2,0.6-0.4,0.6-0.4c0,0,0,0,0,0l0.4-0.7
+						c0.1-0.1,0.2-0.1,0.3-0.1c0.1,0,0.2,0.1,0.2,0.2c0,0.4,0.1,0.9,0.1,1c0,0,0,0,0,0.1c0,0,0,0,0,0l0-0.2c0.2-0.9,0.3-1.4,0.9-1.4
+						c0.1,0,0.1,0,0.2,0c0.3,0,0.7-0.1,1,0.2C6.3,2.7,6.4,3,6.4,3.3c0,0.4,0,0.6-0.1,0.8C6.2,4.1,6,4.1,6,4.1c-0.1,0-0.2,0-0.3,0
+						C5.5,4.3,5.3,4.5,5.4,4.7c0,0.1,0.1,0.1,0.1,0.1c0.3,0.1,0.8,0.2,1.2,0.4C8,5.8,8,7.3,8,8.3C8,8.6,8,8.9,8.1,9
+						c0.5-0.4,1.5-2.2,1.3-2.7c-0.3-0.7-0.4-1,0.3-1.4c0.4-0.2,0.7-0.5,0.7-0.7c0-0.1,0.1-0.3,0.2-0.3c0.2,0,0.3,0.1,0.3,0.2
+						C11,4.6,10.6,5,10,5.3C9.7,5.5,9.7,5.5,9.9,6.1c0.3,0.9-1.1,3-1.6,3.3C8.2,9.5,8.1,9.6,8.1,9.6z M4,4.1L4,4.1L4,4.1z M2.2,3.9
+						L2.2,3.9L2.2,3.9z" />
+</g>
+<g>
+<path d="M2.5,9.7C2.5,9.7,2.5,9.7,2.5,9.7C2.3,9.6,2.2,9.5,2.3,9.4c0.5-1.4,0.7-1.6,1.1-2l0.1-0.1
+						C3.3,7.3,3.1,7.2,3,7.2C2.7,7.1,2.5,7,2.3,6.8C2.2,6.7,2.1,6.6,2,6.6c-0.1,0-0.1-0.1-0.2-0.1C1.7,6.6,1.6,7.1,1.6,7.5
+						c0,0.1-0.1,0.2-0.3,0.2C1.1,7.7,1,7.6,1.1,7.4C1.2,6,1.5,5.9,1.6,5.9c0.1-0.1,0.3,0,0.4,0.1C2.1,6,2.2,6.1,2.2,6.1
+						c0.1,0.1,0.3,0.2,0.5,0.3C2.8,6.5,3,6.6,3.2,6.7C3.6,6.8,3.9,7,4,7.3c0,0.1,0,0.3-0.2,0.4c0,0-0.1,0.1-0.1,0.1
+						C3.4,8,3.2,8.2,2.7,9.5C2.7,9.6,2.6,9.7,2.5,9.7z" />
+</g>
+</g>
+</symbol>
+<symbol id="checkIcon" aria-labelledby="checkIconTitle" viewBox="0 0 32 32">
+<title id="checkIconTitle">checkIcon icon</title>
+<path clip-rule="evenodd" d="M27.704,8.397c-0.394-0.391-1.034-0.391-1.428,0  L11.988,22.59l-6.282-6.193c-0.394-0.391-1.034-0.391-1.428,0c-0.394,0.391-0.394,1.024,0,1.414l6.999,6.899  c0.39,0.386,1.039,0.386,1.429,0L27.704,9.811C28.099,9.421,28.099,8.787,27.704,8.397C27.31,8.006,28.099,8.787,27.704,8.397z" fill-rule="evenodd" />
+</symbol>
+</defs>
+</svg>
+<section class="wrapper">
+<div class="container-fluid">
+<div class="row">
+<div class="col-lg-7 col-md-6 nopadding matchHeight rightSide">
+<div class="newAccount">
+<span>לא רשום במערכת?</span>
+<a href="https://www.meckano.co.il/%D7%94%D7%A7%D7%9E%D7%AA-%D7%9E%D7%A0%D7%95%D7%99" target="_blank">צור חשבון חדש!</a>
+</div>
+<form id="loginForm" method="post" autocomplete="on">
+<a href="https://www.meckano.co.il" class="logoWrap" target="_blank">
+<img src="images/logo.png" alt="meckano">
+</a>
+<p class="sl">
+היי טוב לראות אותך! <br>לתחילת עבודה עם מערכת נוכחות <br>יש להזין את פרטי הגישה שלך </p>
+<p class="sl2 hidden">
+שכחת את הסיסמא? גם זה קורה.</br>הזינו את כתובת המייל כפי שהיא שמורה במערכת ולחצו על שחזור סיסמא. </p>
+<p class="sl3 hidden">
+איפוס סיסמא </p>
+<p class="sl4 hidden">
+שלום!<br>חשוב לנו שהמידע האישי של חשבונך יהיה שמור ומאובטח, כעת זה זמן מצוין לעדכן סיסמה חדשה.<br>אם נתקלת בבעיות בשינוי הסיסמה או בכניסה חוזרת למערכת יש לפנות למנהל המערכת בארגון. </p>
+<div class="xC xCE inputWrap">
+<label for="email">שם משתמש</label>
+<input type="email" id="email" name="email" autocomplete="email" class="email" required>
+<p>לא הוזן שם משתמש</p>
+</div>
+<div class="xC inputWrap pw xCP">
+<label for="password">סיסמה</label>
+<button class="showPassBtn" type="button" tabindex="-1">
+<svg class="showPass"><use xlink:href="#showPass"></use></svg>
+</button>
+<input type="password" id="password" name="password" autocomplete="current-password" class="password" required>
+<p>לא הוזנה סיסמה</p>
+</div>
+<div class="xC inputWrap pwR hidden">
+<label for="password">סיסמא חדשה</label>
+<button class="showPassBtn" type="button" tabindex="-1">
+<svg class="showPass"><use xlink:href="#showPass"></use></svg>
+</button>
+<input type="password" id="password2" name="new_password" autocomplete="off" class="password meterPassword">
+</div>
+<div class="xC inputWrap pwR hidden">
+<label for="password">אימות סיסמא</label>
+<button class="showPassBtn" type="button" tabindex="-1">
+<svg class="showPass"><use xlink:href="#showPass"></use></svg>
+</button>
+<input type="password" id="password3" name="new_password_prompt" autocomplete="off" class="password">
+</div>
+<div class="xC pwR hidden">
+<div class="wrapperMeter">
+<meter min="0" max="4" id="password-strength-meter" required></meter>
+<div class="wrapperPasswordStrength" style="display: none;">חוזק סיסמה: <span id="password-strength-text"></span></div>
+</div>
+</div>
+<div class="xC inputWrap hidden" id="verificationCode">
+<p class="verificationCodeTxt sl hidden">שלחנו לך קוד אימות,<br> יש להזין אותו למטה על מנת להמשיך.</p>
+<p class="verificationCodeTxt time-code hidden">הקוד תקף ל-5 דקות</p>
+<label for="verificationCode" class="verificationCode hidden">קוד אימות</label>
+<label for="verificationCode" class="recaptchaCode hidden">לצורך אימות חשבונך, הודעה עם קוד אימות נשלחה אליך.</label>
+<input type="text" id="verificationCode" name="verificationCode" autocomplete="off" class="verificationCode">
+<a href="#" class="send sl resend" tabindex="-1">שלח קוד אימות מחדש</a>
+</div>
+<div class="xC loginNotification" style="display: none"></div>
+<div class="xC inputWrap pw">
+<div class="checkWrap rME" tabindex="-1">
+<label for="rememberMe">
+<input type="checkbox" name="login_cookie" id="rememberMe" class="remember-me remember-me-check">
+<span class="check">
+<svg class="checkIcon"><use xlink:href="#checkIcon"></use></svg>
+</span>
+<span>זכור אותי</span>
+</label>
+</div>
+<a href="#" class="forgotPass" tabindex="-1">לא זוכרים את הסיסמה?</a>
+</div>
+<div class="submitButtonsWrapper">
+<div class="xC inputWrap" id="submitButtons">
+<input class="send sl login" type="button" name="submit" value="התחברות">
+<input class="send sl2 hidden rp" type="button" name="submit" value="שחזור סיסמה">
+<input class="send sl3B s13 hidden pwR" type="button" name="submit" value="שמור סיסמא">
+<a class="sl2 hidden backToLogin">
+<u>חזרה למסך התחברות</u>
+</a>
+</div>
+<div class="xC inputWrap orWithGoogle">
+<div class="orWithGoogleText">או באמצעות</div>
+<div class="orWithGoogleLiner"></div>
+</div>
+<div class="login-sso-btns-wrapper">
+<div class="login-sso-btn">
+<div id="googleSignUp" class="xC inputWrap googleSignUp"></div>
+<span>Google</span>
+</div>
+<div class="login-sso-btns-divider"></div>
+<div class="login-sso-btn">
+<div id="microsoftSignUp" class="xC inputWrap microsoftSignUp">
+<img class="microsoftIcon login-sso-microsoft-icon" src="images/icons/microsoft.svg">
+</div>
+<span>Microsoft</span>
+</div>
+</div>
+<div class="xC loginNotificationGoogle" style="display: none"></div>
+<div class="inputWrap pwSnt hidden">
+<strong><u>המערכת מאתרת את המידע ותשלח הוראות לשחזור הסיסמא לכתובת המייל שלך<br>בעוד רגע תועברו לעמוד הכניסה למערכת.</u></strong>
+</div>
+<input type="hidden" name="fType" class="fType">
+</div>
+<div class="big-preloader"></div>
+</form>
+<div class="clearfix"></div>
+<div class="loginFooter">
+<p>© 2023 כל הזכויות שמורות - Meckano </p>
+<a target="_blank" href="https://www.meckano.co.il/%D7%AA%D7%A7%D7%A0%D7%95%D7%9F-%D7%94%D7%90%D7%AA%D7%A8">תנאי שימוש</a>
+<a target="_blank" href="https://www.meckano.co.il/%D7%94%D7%A6%D7%94%D7%A8%D7%AA-%D7%A4%D7%A8%D7%98%D7%99%D7%95%D7%AA">הצהרת פרטיות</a>
+<a target="_blank" href="https://app.meckano.co.il/tofes101">טופס 101</a>
+<a href="?l=en">
+<span>En</span>
+<svg class="language"><use xlink:href="#language"></use></svg>
+</a>
+</div>
+</div>
+<div class="col-lg-5 col-md-6 nopadding matchHeight leftSide">
+<div class="bgWrap">
+<div class="centerdTxt">
+<h1>דיווח וניהול שעון נוכחות <br><span>במערכת אחת מנצחת!</span></h1>
+<h2>נהלו את המשאב האנושי בארגון <br> עם מגוון פתרונות ייחודיים בכל זמן ומכל מקום</h2>
+<a target="_blank" href="https://www.meckano.co.il/%D7%90%D7%99%D7%9A-%D7%96%D7%94-%D7%A2%D7%95%D7%91%D7%93">רוצה לדעת יותר?</a>
+</div>
+<div class="appLinks">
+<a target="_blank" href="https://itunes.apple.com/il/app/meckano/id572248235?mt=8" target="_blank">
+<svg class="appstore"><use xlink:href="#appstore"></use></svg>
+<span class="sr-only">app store</span>
+</a>
+<a target="_blank" href="https://play.google.com/store/apps/details?id=com.kfir.Meckano" target="_blank">
+<svg class="googlePlay"><use xlink:href="#googlePlay"></use></svg>
+<span class="sr-only">google play</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer>
+</footer>
+<script type="47767cdfa87be2874ee3eb77-text/javascript">
+		$(document).ready(function() {
+			Application.api = '/api/';
+			LoginManager.init(0);
+            var heightMatchDiv = $('.rightSide').height();
+            $('.bgWrap').height(heightMatchDiv  - 100); // 100 is padding of .bgWrap
+            var isRedirectToForgetPassword = '0';
+            if(isRedirectToForgetPassword == "1") {
+                $("a.forgotPass").click();
+            }
+		});
+	</script>
+<script type="47767cdfa87be2874ee3eb77-text/javascript">
+        $(window).on("load", function () {
+            setTimeout(function(){
+                const elGoogleSignUp = document.getElementById("googleSignUp")
+                google.accounts.id.initialize({
+                    client_id: '145965974809-1hqd3fuqva40hbjql83scun43tv2d61s.apps.googleusercontent.com',
+                    callback: response => {
+                        const isResendVerificationCode = false;
+                        _login(isResendVerificationCode,"google", response.credential);
+                    }
+                });
+
+                google.accounts.id.renderButton(
+                    elGoogleSignUp,
+                    {size:"large", type: "icon" }
+                );
+
+                setTimeout(()=>{ $("div.login-sso-btns-wrapper").addClass("loaded"); },350)
+            }, 300);
+        });
+
+        $("#microsoftSignUp").click(function () {
+            var client_id = 'b94fff01-f2b5-4238-9609-2e5b3a3aeda2';
+            var redirect_uri = 'https://app.meckano.co.il/login.php';
+            var url = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=" + client_id + "&response_type=code&redirect_uri="
+                + redirect_uri + "&response_mode=query&scope=https://graph.microsoft.com/user.read";
+
+            $(location).attr("href", url);
+        });
+
+        $("input.login").click(function () {
+            var isResendVerificationCode = false;
+            _login(isResendVerificationCode);
+        });
+
+        $("a.resend").click(function () {
+            var isResendVerificationCode = true;
+            _login(isResendVerificationCode);
+        });
+    </script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="47767cdfa87be2874ee3eb77-|49" defer></script></body>
+</html>
